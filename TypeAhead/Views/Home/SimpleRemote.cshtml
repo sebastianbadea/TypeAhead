@@ -3,12 +3,18 @@
 }
 
 <h2>Simple remote</h2>
-<input type="text" class="typeahead" />
+<p><input type="text" class="typeahead" /></p>
+<p><input type="text" id="displayCtl" disabled="disabled" /></p>
+
+
+
+@Html.Hidden("urlGetDummyDict", Url.Action("GetDummyDict"))
+
 @section scripts
 {
     <script type="text/javascript">
         $(function () {
-            type.simpleRemote();
+            type.simpleRemote($(".typeahead"), $("#urlGetDummyDict").val(), $("#displayCtl"));
         });
     </script>
 }
