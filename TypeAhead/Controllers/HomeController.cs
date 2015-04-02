@@ -8,22 +8,18 @@ namespace TypeAhead.Controllers
 {
     public class HomeController : Controller
     {
-        public ActionResult Index()
+        public ActionResult SimpleRemote()
         {
             return View();
         }
 
-        public ActionResult About()
+        public ActionResult GoogleMap()
         {
-            ViewBag.Message = "Your application description page.";
-
             return View();
         }
 
-        public ActionResult Contact()
+        public ActionResult WithTemplate()
         {
-            ViewBag.Message = "Your contact page.";
-
             return View();
         }
     }

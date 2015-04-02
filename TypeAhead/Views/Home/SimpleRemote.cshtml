@@ -1,0 +1,14 @@
+﻿@{
+    ViewBag.Title = "SimpleRemote";
+}
+
+<h2>Simple remote</h2>
+<input type="text" class="typeahead" />
+@section scripts
+{
+    <script type="text/javascript">
+        $(function () {
+            type.simpleRemote();
+        });
+    </script>
+}
