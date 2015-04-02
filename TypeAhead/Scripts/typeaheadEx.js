@@ -22,7 +22,6 @@
 
             dummies.initialize();
 
-            // Instantiate the Typeahead UI
             var dummyAhead = typeCtl.typeahead({
                 autoselect: true,
                 minLength: 1
@@ -34,8 +33,50 @@
                 displayCtl.val(data.value);
             });
         },
-        googleMaps = function () {
-            alert('googleMaps');
+        googleMaps = function (typeCtl, lat, lng, location) {
+            var locations = new Bloodhound({
+                datumTokenizer: function (d) {
+                    return Bloodhound.tokenizers.whitespace(d.value);
+                },
+                queryTokenizer: Bloodhound.tokenizers.whitespace,
+                remote: {
+                    url: 'https://maps.googleapis.com/maps/api/geocode/json?address=%QUERY',
+                    filter: function (locations) {
+                        return $.map(locations.results, function (location) {
+                            return {
+                                value: location.formatted_address,
+                                geolat: location.geometry.location.lat,
+                                geolong: location.geometry.location.lng
+                            };
+                        });
+                    }
+                }
+            });
+
+            locations.initialize();
+
+            typeCtl.typeahead({
+                highlight: true,
+                autoselect: true
+            }, {
+                name: 'value',
+                displayKey: 'value',
+                source: locations.ttAdapter()
+            });
+
+
+            var searchboxItemSelectedHandler = function (e, datum, lat, lng, location) {
+                lat.val(datum.geolat),
+                lng.val(datum.geolong);
+                location.val(datum.value);
+            };
+
+            typeCtl.on('typeahead:selected', function (e, datum) {
+                searchboxItemSelectedHandler(e, datum, lat, lng, location);
+            } );
+            typeCtl.on('typeahead:autocompleted', function (e, datum) {
+                searchboxItemSelectedHandler(e, datum, lat, lng, location);
+            });
         },
         withTemplate = function () {
             alert('withTemplate');
