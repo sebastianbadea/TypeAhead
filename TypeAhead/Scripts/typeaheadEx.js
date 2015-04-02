@@ -8,6 +8,8 @@
                 },
                 queryTokenizer: Bloodhound.tokenizers.whitespace,
                 remote: {
+                    //nameContains -> must be set as parameter on the server side method
+                    //if not, it will receive the whole list and filter on local
                     url: url + '?nameContains=%QUERY',
                     filter: function (dummies) {
                         return $.map(dummies, function (dummy) {
@@ -86,9 +88,12 @@
                 },
                 queryTokenizer: Bloodhound.tokenizers.whitespace,
                 remote: {
-                    url: url + '?nameContains=%QUERY',
+                    
+                    url: url + '?templName=%QUERY',
+                    //callback function
                     filter: function (items) {
                         return $.map(items, function (item) {
+                            //maps the result from ajax to custom objects
                             return {
                                 name: item.Name,
                                 description: item.Description,
@@ -105,7 +110,8 @@
                 autoselect: true,
                 minLength: 1
             }, {
-                displayKey: 'value',
+                //it doesn't matter if you specify it. it will take the template instead.
+                //displayKey: 'value',
                 source: items.ttAdapter(),
                 templates: {
                     suggestion: Handlebars.compile("<strong>Name: </strong>{{name}}<br /><strong>Description:</strong> {{description}}")

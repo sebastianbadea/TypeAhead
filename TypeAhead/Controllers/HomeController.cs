@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Web.Mvc;
 using TypeAhead.Models;
+using System.Linq;
 
 namespace TypeAhead.Controllers
 {
@@ -24,7 +25,34 @@ namespace TypeAhead.Controllers
         #endregion
 
         #region json methods
-        public JsonResult GetDummyDict()
+        public JsonResult GetDummyDict(string nameContains)
+        {
+            var list = CreateDummyList();
+
+            return 
+                Json
+                (
+                    list.Where(d => d.Value.Contains(nameContains)).ToList(), 
+                    JsonRequestBehavior.AllowGet
+                );
+        }
+
+        public JsonResult GetTempl(string templName)
+        {
+            var list = CreateTemplList();
+
+            return 
+                Json
+                (
+                    list.Where(t => t.Name.Contains(templName)).ToList(), 
+                    JsonRequestBehavior.AllowGet
+                );
+        }
+
+        #endregion
+
+        #region private methods
+        private List<DummyDict> CreateDummyList()
         {
             var list = new List<DummyDict>();
 
@@ -32,20 +60,26 @@ namespace TypeAhead.Controllers
             {
                 list.Add(new DummyDict { Id = i, Value = "value of " + i.ToString() });
             }
-
-            return Json(list, JsonRequestBehavior.AllowGet);
+            return list;
         }
 
-        public JsonResult GetTempl()
+        private List<Templ> CreateTemplList()
         {
             var list = new List<Templ>();
 
             for (int i = 0; i < 10; i++)
             {
-                list.Add(new Templ { Id=i, Name = "Name " + i.ToString(), Description = "This a silly description for " + i.ToString() });
+                list.Add
+                (
+                    new Templ
+                    {
+                        Id = i,
+                        Name = "Name " + i.ToString(),
+                        Description = "This a silly description for " + i.ToString()
+                    }
+                );
             }
-
-            return Json(list, JsonRequestBehavior.AllowGet);
+            return list;
         }
         #endregion
     }
