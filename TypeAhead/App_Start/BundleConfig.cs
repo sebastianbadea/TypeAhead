@@ -9,13 +9,7 @@ namespace TypeAhead
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery-{version}.js"));
-
-            bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
-                        "~/Scripts/jquery.validate*"));
-
-            // Use the development version of Modernizr to develop with and learn from. Then, when you're
-            // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
+                        "~/Scripts/jquery-1.10.2.js"));
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
 
@@ -28,7 +22,6 @@ namespace TypeAhead
                       "~/Content/site.css"));
             bundles.Add(new ScriptBundle("~/bundles/typeahead").Include(
                 "~/Scripts/typeahead.bundle.js",
-                "~/Scripts/typeahead.jquery.js",
                 "~/Scripts/typeaheadEx.js"));
             bundles.Add(new StyleBundle("~/Content/typeahead").Include(
                 "~/Content/typeahead.css"));
