@@ -23,14 +23,14 @@
             dummies.initialize();
 
             // Instantiate the Typeahead UI
-            var domainAhead = typeCtl.typeahead({
+            var dummyAhead = typeCtl.typeahead({
                 autoselect: true,
                 minLength: 1
             }, {
                 displayKey: 'value',
                 source: dummies.ttAdapter()
             });
-            domainAhead.on('typeahead:selected', function (evt, data) {
+            dummyAhead.on('typeahead:selected', function (evt, data) {
                 displayCtl.val(data.value);
             });
         },
