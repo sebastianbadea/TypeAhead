@@ -30,6 +30,8 @@ namespace TypeAhead
                 "~/Scripts/typeahead.bundle.js",
                 "~/Scripts/typeahead.jquery.js",
                 "~/Scripts/typeaheadEx.js"));
+            bundles.Add(new StyleBundle("~/Content/typeahead").Include(
+                "~/Content/typeahead.css"));
         }
     }
 }
