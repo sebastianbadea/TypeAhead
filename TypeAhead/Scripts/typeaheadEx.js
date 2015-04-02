@@ -14,7 +14,7 @@
                     filter: function (dummies) {
                         return $.map(dummies, function (dummy) {
                             return {
-                                value: dummy.Value,
+                                dummyValue: dummy.Value,
                                 key: dummy.Id
                             };
                         });
@@ -28,11 +28,11 @@
                 autoselect: true,
                 minLength: 1
             }, {
-                displayKey: 'value',
+                displayKey: 'dummyValue',
                 source: dummies.ttAdapter()
             });
             dummyAhead.on('typeahead:selected', function (evt, data) {
-                displayCtl.val(data.value);
+                displayCtl.val(data.dummyValue);
             });
         },
         googleMaps = function (typeCtl, lat, lng, location) {
