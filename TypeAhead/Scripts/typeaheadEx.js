@@ -78,8 +78,42 @@
                 searchboxItemSelectedHandler(e, datum, lat, lng, location);
             });
         },
-        withTemplate = function () {
-            alert('withTemplate');
+        withTemplate = function (typeCtl, url, displayCtl) {
+            var items = new Bloodhound({
+                limit: 10,
+                datumTokenizer: function (datum) {
+                    return Bloodhound.tokenizers.whitespace(datum.value);
+                },
+                queryTokenizer: Bloodhound.tokenizers.whitespace,
+                remote: {
+                    url: url + '?nameContains=%QUERY',
+                    filter: function (items) {
+                        return $.map(items, function (item) {
+                            return {
+                                name: item.Name,
+                                description: item.Description,
+                                key: item.Id
+                            };
+                        });
+                    }
+                }
+            });
+
+            items.initialize();
+
+            var itemsAhead = typeCtl.typeahead({
+                autoselect: true,
+                minLength: 1
+            }, {
+                displayKey: 'value',
+                source: items.ttAdapter(),
+                templates: {
+                    suggestion: Handlebars.compile("<strong>Name: </strong>{{name}}<br /><strong>Description:</strong> {{description}}")
+                }
+            });
+            itemsAhead.on('typeahead:selected', function (evt, data) {
+                displayCtl.val("you selected " + data.name);
+            });
         }
 
     return {

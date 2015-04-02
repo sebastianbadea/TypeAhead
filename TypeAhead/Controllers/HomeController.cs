@@ -35,6 +35,18 @@ namespace TypeAhead.Controllers
 
             return Json(list, JsonRequestBehavior.AllowGet);
         }
+
+        public JsonResult GetTempl()
+        {
+            var list = new List<Templ>();
+
+            for (int i = 0; i < 10; i++)
+            {
+                list.Add(new Templ { Id=i, Name = "Name " + i.ToString(), Description = "This a silly description for " + i.ToString() });
+            }
+
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }
         #endregion
     }
 }

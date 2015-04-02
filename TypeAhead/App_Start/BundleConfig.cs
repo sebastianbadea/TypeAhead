@@ -25,6 +25,8 @@ namespace TypeAhead
                 "~/Scripts/typeaheadEx.js"));
             bundles.Add(new StyleBundle("~/Content/typeahead").Include(
                 "~/Content/typeahead.css"));
+            bundles.Add(new ScriptBundle("~/bundles/handlebars").Include(
+                "~/Scripts/handlebars.js"));
         }
     }
 }

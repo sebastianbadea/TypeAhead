@@ -116,6 +116,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\DummyDict.cs" />
+    <Compile Include="Models\Templ.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -127,6 +128,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bloodhound.js" />
     <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\handlebars.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
