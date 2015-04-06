@@ -1,0 +1,35 @@
+function (typeCtl, url, displayCtl) {
+            var dummies = new Bloodhound({
+                limit: 10,
+                datumTokenizer: function (datum) {
+                    return Bloodhound.tokenizers.whitespace(datum.value);
+                },
+                queryTokenizer: Bloodhound.tokenizers.whitespace,
+                remote: {
+                    //nameContains -> must be set as parameter on the server side method
+                    //if not, it will receive the whole list and filter on local
+                    url: url + '?nameContains=%QUERY',
+                    filter: function (dummies) {
+                        return $.map(dummies, function (dummy) {
+                            return {
+                                dummyValue: dummy.Value,
+                                key: dummy.Id
+                            };
+                        });
+                    }
+                }
+            });
+
+            dummies.initialize();
+
+            var dummyAhead = typeCtl.typeahead({
+                autoselect: true,
+                minLength: 1
+            }, {
+                displayKey: 'dummyValue',
+                source: dummies.ttAdapter()
+            });
+            dummyAhead.on('typeahead:selected', function (evt, data) {
+                displayCtl.val(data.dummyValue);
+            });
+        }
