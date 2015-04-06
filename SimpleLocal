@@ -1,0 +1,12 @@
+<html>
+  <input type="text" class="typeahead" />
+</html>
+<script type="text/javascript">
+$(function(){
+    var source = ["Alabama","Alaska","Arizona","Arkansas"];
+
+    var typeahead = $('.typeahead').data('typeahead');
+    if (typeahead) typeahead.source = source;
+    else $('.typeahead').typeahead({source: source});
+});
+</script>
